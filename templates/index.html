@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Videre</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <h1>Videre</h1>
+                <button id="darkModeToggle" class="btn-icon" onclick="toggleDarkMode()" title="Toggle Dark Mode">
+                    <span id="darkModeIcon">🌙</span>
+                </button>
+            </div>
+        </header>
+
+        <div class="network-info-panel" id="networkInfoPanel">
+            <h3>Network Information</h3>
+            <div class="network-info-grid" id="networkInfoContent">
+                <div class="info-item">
+                    <span class="info-label">Loading...</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <div class="control-group">
+                <button id="scanBtn" class="btn btn-primary" onclick="startScan()">Start Scan</button>
+                <button id="refreshBtn" class="btn btn-secondary">Refresh</button>
+                <button id="pingAllBtn" class="btn btn-secondary" onclick="pingAllDevices()">Ping All</button>
+            </div>
+            <div class="status-indicator">
+                <span id="statusText">Ready</span>
+                <span id="scanStatus" class="status-dot"></span>
+            </div>
+        </div>
+
+        <div class="filter-controls">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search devices..." oninput="filterDevices()">
+            </div>
+            <div class="sort-controls">
+                <label for="sortSelect">Sort by:</label>
+                <select id="sortSelect" onchange="sortDevices()">
+                    <option value="name">Name</option>
+                    <option value="ip">IP Address</option>
+                    <option value="manufacturer">Manufacturer</option>
+                    <option value="status">Status</option>
+                </select>
+            </div>
+            <div class="filter-controls-group">
+                <label>
+                    <input type="checkbox" id="filterUnknown" onchange="filterDevices()">
+                    Show Unknown Only
+                </label>
+            </div>
+        </div>
+
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-value" id="totalDevices">0</div>
+                <div class="stat-label">Total Devices</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="unknownDevices">0</div>
+                <div class="stat-label">Unknown Devices</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="lastScan">Never</div>
+                <div class="stat-label">Last Scan</div>
+            </div>
+        </div>
+
+        <div class="devices-container">
+            <h2>Discovered Devices <span id="deviceCountBadge" class="badge">0</span></h2>
+            <div id="devicesList" class="devices-list">
+                <div class="empty-state">No devices discovered yet. Click "Start Scan" to begin.</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="deviceModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeDeviceModal()">&times;</span>
+            <h2 id="modalDeviceName">Device Details</h2>
+            <div id="modalContent">
+                <div class="modal-loading">Loading...</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
+
