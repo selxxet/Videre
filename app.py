@@ -5,6 +5,8 @@ import threading
 from datetime import datetime
 import logging
 import warnings
+import sys
+import os
 
 warnings.filterwarnings('ignore')
 logging.getLogger('werkzeug').setLevel(logging.ERROR)
@@ -252,14 +254,20 @@ def ping_all_devices():
 
 
 if __name__ == '__main__':
-    import sys
     
-    print("\nStarting server...")
-    print("Videre is running on http://localhost:5000")
-    print("Press CTRL+C to stop\n")
+    os.system('cls' if os.name == 'nt' else 'clear')
+    
+    print("╔════════════════════════════════════════╗")
+    print("║                 Videre                 ║")
+    print("╚════════════════════════════════════════╝")
+    print()
+    print("  Server running on: http://localhost:5000")
+    print("  Press CTRL+C to stop")
+    print()
     
     try:
         app.run(debug=False, host='0.0.0.0', port=5000, use_reloader=False)
     except KeyboardInterrupt:
-        print("\nShutting down...")
+        print()
+        print("  Shutting down...")
         sys.exit(0)
